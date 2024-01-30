@@ -36,6 +36,8 @@ const parseISOTime = (isoTime) => {
 
     const formattedTime = `${parsedDate.getHours()}:${parsedDate.getMinutes()}`;
 
+    console.log(formattedTime)
+
     return {
         date: parsedDate.toISOString().split('T')[0],
         time: formattedTime
@@ -60,7 +62,7 @@ async function getLocationAt(date, time) {
             results.push({time: parsedTime.time, lat: lat, lone: lon});
         }
     }
-    return results.slice(10);
+    return results.slice(0, Math.min(results.length, 10))
 }
 
 
