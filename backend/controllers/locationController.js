@@ -5,7 +5,7 @@ const {validationResult} = require("express-validator");
 async function getCurrentLocation(req, res) {
     try {
         const result = await getLatestLocation()
-	console.log(result)
+        console.log(result)
         res.status(200).json(result)
     } catch (err) {
         res.status(500).send({message: err.message})
@@ -41,5 +41,6 @@ async function searchLocation(req, res) {
 
 
 module.exports = {
-    getCurrentLocation
+    getCurrentLocation,
+    searchLocation
 }
