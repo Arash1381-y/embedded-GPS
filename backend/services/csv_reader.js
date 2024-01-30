@@ -5,7 +5,7 @@ const csv = require("fast-csv")
 async function getDataFromCsv() {
     return new Promise(function (resolve, reject) {
         let data = []
-        fs.createReadStream('./gps.csv')
+        fs.createReadStream('./../gps.csv')
             .pipe(csv.parse({headers: false, delimiter: ','}))
             .on('error', error => reject())
             .on('data', row => {
