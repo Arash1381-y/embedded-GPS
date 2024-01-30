@@ -25,20 +25,20 @@ async function getLatestLocation() {
     }
 
 
-    const time = data[data.length - 1][0]
-    const lat = data[data.length - 1][1]
-    const lon = data[data.length - 1][2]
-    console.log(time, lat, lon)
+    const [time, lat, lon] = data[data.length - 1]
     return {time: time, lat: lat, lon: lon}
 }
 
 
 const parseISOTime = (isoTime) => {
-    // Assuming isoTime is in the format YYYY-MM-DDTHH:mm:ss
+    // Assuming isoTime is in the format YYYY-MM-DDTHH:mm:ss.SSSSSS
     const parsedDate = new Date(isoTime);
+
+    const formattedTime = `${parsedDate.getHours()}:${parsedDate.getMinutes()}`;
+
     return {
         date: parsedDate.toISOString().split('T')[0],
-        time: parsedDate.toISOString().split('T')[1].split('.')[0].slice(0, 5) // Exclude seconds
+        time: formattedTime
     };
 };
 
@@ -51,7 +51,7 @@ async function getLocationAt(date, time) {
 
     let results = [];
     for (let i = 0; i < data.length; i++) {
-        const {isoTime, lat, lon} = data[i]
+        const [isoTime, lat, lon] = data[i]
         const parsedTime = parseISOTime(isoTime);
 
         // Compare parsedTime with input date and time
@@ -60,7 +60,7 @@ async function getLocationAt(date, time) {
             results.push({time: parsedTime.time, lat: lat, lone: lon});
         }
     }
-    return results;
+    return results.slice(10);
 }
 
 
