@@ -6,7 +6,7 @@ async function getDataFromCsv() {
     return new Promise(function (resolve, reject) {
         let data = []
         fs.createReadStream('./../gps.csv')
-            .pipe(csv.parse({headers: false, delimiter:","}))
+            .pipe(csv.parse({headers: false, delimiter: ","}))
             .on('error', error => reject())
             .on('data', row => {
                 data.push(row)
@@ -23,10 +23,11 @@ async function getLatestLocation() {
     if (data === null) {
         throw Error('Malformed data set')
     }
-    console.log(data.slice(10))
-    time = data[data.length - 1][0]
-    time = data[data.length - 1][1]
-    time = data[data.length - 1][2]
+
+
+    const time = data[data.length - 1][0]
+    const lat = data[data.length - 1][1]
+    const lon = data[data.length - 1][2]
     console.log(time, lat, lon)
     return {time: time, lat: lat, lon: lon}
 }
