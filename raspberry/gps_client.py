@@ -9,7 +9,7 @@ SERIAL = '/dev/ttyAMA0'
 PERIPHERAL_BAUD_RATE = 9600
 UPDATE_INTERVAL = 20
 DIST_THRESHOLD = 1e-4
-SERVER_ADDRESS = ('193.163.200.14', 9999)
+SERVER_ADDRESS = ('', 9999)
 CL = (None, None)
 
 stream = serial.Serial(SERIAL, baudrate=9600)
@@ -21,7 +21,7 @@ d_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 def post_data(lat, lon, timestamp):
     logger.info("POST UPDATE")
-    msg = f"UPDATE {lat} {lon} {timestamp}"
+    msg = f"UPDATE {timestamp} {lat} {lon}"
     d_socket.sendto(msg.encode(), SERVER_ADDRESS)
 
 
@@ -53,18 +53,25 @@ def get_location():
             return lat, lon, get_timestamp()
 
 
-def update_location():
-    logger.info("Update location...")
+def update_location(force: bool = False):
+    if not force:
+        logger.info("Check location...")
+    else:
+        logger.info("Update location...")
+
     global CL
     lat, lon, timestamp = get_location()
     d = get_dist(lat, lon)
     if d > DIST_THRESHOLD or d < 0:
+        post_data(lat, lon, timestamp)
+    elif force:
         post_data(lat, lon, timestamp)
 
     CL = (lat, lon)
 
 
 schedule.every(15).seconds.do(update_location)
+schedule.every().minutes.do(update_location, force=True)
 
 
 def run():

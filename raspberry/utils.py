@@ -37,5 +37,5 @@ def setup_custom_logger(name):
 
 
 def get_timestamp():
-    dt_string = datetime.now().strftime("%d/%m/%Y-%H:%M:%S")
+    dt_string = datetime.now().isoformat()
     return dt_string

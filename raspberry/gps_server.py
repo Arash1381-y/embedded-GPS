@@ -3,7 +3,7 @@ import socket
 
 from utils import setup_custom_logger
 
-SERVER_ADDRESS = ('193.163.200.14', 9999)
+SERVER_ADDRESS = ('', 9999)
 logger = setup_custom_logger('server')
 
 
