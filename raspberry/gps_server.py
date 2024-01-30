@@ -10,8 +10,8 @@ logger = setup_custom_logger('server')
 def update_csv(data):
     if data.startswith("UPDATE"):
         lat, lon, timestamp = data.split(" ")[1:]
-        with open('gps.csv', 'a', newline='') as csvfile:
-            wr = csv.writer(csvfile, delimiter=' ',
+        with open('../gps.csv', 'a', newline='') as csvfile:
+            wr = csv.writer(csvfile, delimiter=',',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
             wr.writerow([lat, lon, timestamp])
 
