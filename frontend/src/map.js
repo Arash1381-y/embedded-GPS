@@ -28,7 +28,7 @@ function getCurrentLocation(setCurrentLoc) {
 
 }
 
-const baseURL = "http://193.163.200.14/location/"
+const baseURL = "http://193.163.200.14:10000/location/"
 
 function GpsMap() {
 
@@ -36,7 +36,7 @@ function GpsMap() {
     const [searchLoc, setSearchLoc] = useState(null)
 
 
-    const [position, setPosition] = useState([51.505, -0.09])
+    const [position, setPosition] = useState([51.505, 37])
 
 
     useEffect(() => {
