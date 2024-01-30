@@ -6,7 +6,7 @@ async function getDataFromCsv() {
     return new Promise(function (resolve, reject) {
         let data = []
         fs.createReadStream('./../gps.csv')
-            .pipe(csv.parse({headers: false, delimiter: ','}))
+            .pipe(csv.parse({headers: false}))
             .on('error', error => reject())
             .on('data', row => {
                 data.push(row)
