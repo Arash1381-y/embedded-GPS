@@ -9,7 +9,7 @@ SERIAL = '/dev/ttyAMA0'
 PERIPHERAL_BAUD_RATE = 9600
 UPDATE_INTERVAL = 20
 DIST_THRESHOLD = 1e-4
-SERVER_ADDRESS = ('', 9999)
+SERVER_ADDRESS = ('193.163.200.14', 9999)
 CL = (None, None)
 
 stream = serial.Serial(SERIAL, baudrate=9600)
@@ -48,9 +48,9 @@ def get_location():
                 lat = float(msg.lat)
             if msg.lon != "":
                 lon = float(msg.lon)
-
-            logger.info("latitude : " + str(lat) + " longitude : " + str(lon))
-            return lat, lon, get_timestamp()
+            if msg.lon and msg.lat:
+                logger.info("latitude : " + str(lat) + " longitude : " + str(lon))
+                return lat, lon, get_timestamp()
 
 
 def update_location(force: bool = False):
@@ -61,6 +61,9 @@ def update_location(force: bool = False):
 
     global CL
     lat, lon, timestamp = get_location()
+    if not lat or not lon:
+        return
+
     d = get_dist(lat, lon)
     if d > DIST_THRESHOLD or d < 0:
         post_data(lat, lon, timestamp)
