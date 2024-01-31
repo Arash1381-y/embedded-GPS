@@ -30,13 +30,13 @@
 <div id="map"></div>
 
 <script>
-    let map;
+    var map = L.map('map').setView([0, 0], 13);
     let marker;
     let clat;
     let clon;
 
     window.onload = function () {
-        map = L.map('map').setView([0, 0], 13);
+        console.log("here")
         getCurrentLoc()
     }
 
@@ -45,13 +45,15 @@
             .then((response) => response.json())
             .then((json) => {
                 const timestamp = json.time
-                const lat = parseFloat(json.lat)
-                const lon = parseFloat(json.lon)
-                map.panTo([lat, lon])
-                map.removeLayer(marker)
-                marker = L.marker([lat, lon]).addTo(map)
+                clat = parseFloat(json.lat)
+                clon = parseFloat(json.lon)
+                console.log("l : ", clat, clon)
+
                 clat = 31
                 clon = 50
+                marker = L.marker([lat, lon]).addTo(map)
+                map.panTo([lat, lon])
+                map.removeLayer(marker)
             })
     }
 
