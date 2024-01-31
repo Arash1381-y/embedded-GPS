@@ -4,8 +4,6 @@ Infrastructure to receive data from  **GPS** module and send it to server.
 
 <img src="../docs/resource/gps_data_transfer.png">
 
-# GPS Client Side
-
 - Use **GPS** modules to receive NMEA format data
 - Parse NMEA format data into geo point (latitude, longitude).
 - Send data to the Server
