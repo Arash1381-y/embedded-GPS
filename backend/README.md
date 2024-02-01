@@ -38,15 +38,18 @@ Get at most 10 locations relates to given inputs
 #### Request Format
 
 ```http request
-GET {{local}}/location/search?date=&time= 
+GET {{base_url}}/location/search?date=&time= 
 ```
 #### Response Format
 
 ```json
-[{
+[
+  {
   "timestamp": "...",
   "lat": "...",
   "lon": "..."
-}, ...]
+},
+  ...
+]
 
 ```
