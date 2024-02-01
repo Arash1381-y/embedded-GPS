@@ -7,7 +7,6 @@ ffmpeg is a collection of tools to process multimedia content such as audio and 
 ## Launching v4l2loopbackl
 v4l2loopback parameters paramater assignment example:
 ```shell
-sudo modprobe v4l2loopback devices=1 max_buffers=2 exclusive_caps=1 card_label="VirtualCam #0" 
 ```
 ## Launching ffmpeg
 
