@@ -1,0 +1,6 @@
+psycopg2-binary==2.9.9
+
+pyserial~=3.5
+schedule~=1.2.1
+pynmeagps~=1.0.33
+python-dotenv~=1.0.1
