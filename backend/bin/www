@@ -11,8 +11,12 @@ const http = require('http');
 /**
  * Get port from environment and store in Express.
  */
+const dotenv = require('dotenv');
+dotenv.config({path: "../.env.backend"});
 
-const port = normalizePort(process.env.PORT || '10000');
+const port = normalizePort(process.env.PORT || '8000');
+
+
 app.set('port', port);
 
 /**
@@ -58,7 +62,7 @@ function onError(error) {
         throw error;
     }
 
-    var bind = typeof port === 'string'
+    const bind = typeof port === 'string'
         ? 'Pipe ' + port
         : 'Port ' + port;
 

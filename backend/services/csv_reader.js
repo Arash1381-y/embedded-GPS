@@ -1,11 +1,14 @@
 const fs = require("fs")
 const csv = require("fast-csv")
 
+const dotenv = require('dotenv');
+dotenv.config({path: "../.env.backend"});
+
 
 async function getDataFromCsv() {
     return new Promise(function (resolve, reject) {
         let data = []
-        fs.createReadStream('./../gps.csv')
+        fs.createReadStream(process.env.DATA_FILE)
             .pipe(csv.parse({headers: false, delimiter: ","}))
             .on('error', error => reject())
             .on('data', row => {
@@ -62,7 +65,8 @@ async function getLocationAt(date, time) {
             results.push({time: parsedTime.time, lat: lat, lone: lon});
         }
     }
-    return results.slice(0, Math.min(results.length, 10))
+    // return 10 latest data
+    return results.slice(results.length - 10, results.length)
 }
 
 
